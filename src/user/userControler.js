@@ -2,7 +2,7 @@
 const { insertUser, findUser } = require('./userService');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcryptjs');
 
 let createUser = async (req, res) => {
     const { name, email, password, dateOfBirth, longitude, latitude } = req.body;
@@ -30,7 +30,12 @@ let loginUser = async (req, res) => {
 
 
         let userFinder = await findUser(email);
-        if (userFinder && email == userFinder.email && password == userFinder.password) {
+
+        let passChecker = await bcrypt.compare(password, userFinder.password);
+
+
+
+        if (userFinder && email == userFinder.email && passChecker) {
 
             req.session.isLoggedIn = true;
             req.session.userId = userFinder._id;
