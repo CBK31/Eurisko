@@ -14,7 +14,7 @@ let createUser = async (req, res) => {
             res.status(400).send('Error while signing in / user aldready exist in database');
 
         } else {
-            insertUser(name, email, password, dateOfBirth, longitude, latitude);
+            await insertUser(name, email, password, dateOfBirth, longitude, latitude);
             res.redirect('/');
         }
 

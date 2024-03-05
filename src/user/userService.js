@@ -1,5 +1,5 @@
 const userModel = require('./userModel');
-
+const bcrypt = require('bcryptjs');
 
 const findUser = async (userEmail) => {
 
@@ -9,10 +9,15 @@ const findUser = async (userEmail) => {
 
 const insertUser = async (name, email, password, dateOfBirth, longitude, latitude) => {
 
+
+    let hashedpass = await bcrypt.hash(password, 12);
+
+    console.log('user created ');
+
     await new userModel({
         name: name,
         email: email,
-        password: password,
+        password: hashedpass,
         registrationDate: Date(),
         dateOfBirth: dateOfBirth,
         location: {

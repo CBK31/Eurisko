@@ -48,7 +48,7 @@ myRoutes.use('/api/category/add', categoryControler.addcateg);
 
 myRoutes.use('api/songs/add', songControler.addsong);
 
-myRoutes.use('api/songs/delete', songControler.deleteSong);
+myRoutes.use('api/songs/delete', songControler.delSong);
 
 
 

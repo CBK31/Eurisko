@@ -1,6 +1,6 @@
 const { deleteSong } = require('./songService');
 
-const deleteSong = async (req, res) => {
+const delSong = async (req, res) => {
 
     try {
         const { id } = req.params;
@@ -29,4 +29,4 @@ const addsong = async (req, res) => {
 }
 
 
-module.exports = { deleteSong, addsong };
+module.exports = { delSong, addsong };
