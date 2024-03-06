@@ -48,7 +48,7 @@ const readAlbum = async (req, res) => {
         const { id } = req.params;
         let album = await findAlbumById(id);
 
-        res.json({ album: album });
+        res.status(200).json({ album: album });
 
     } catch (error) {
         res.status(400).send({ message: error.message });
