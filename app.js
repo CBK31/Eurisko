@@ -4,7 +4,7 @@ const app = express();
 app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 const routes = require('./src/routes/routes');
-app.use(bodyParser.urlencoded({ extended: true }));
+
 const session = require('express-session');
 
 
@@ -23,12 +23,17 @@ mongoose.connect('mongodb://localhost:27017/audioLibrary')
         console.log(err);
     })
 
-
+// for parsing the req.body
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.use(session({ secret: 'my secret', resave: false, saveUninitialized: false }));
 
 app.use(routes);
+
+
+
 
 
 app.listen(3000, () => {

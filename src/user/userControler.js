@@ -30,28 +30,35 @@ let loginUser = async (req, res) => {
 
 
         let userFinder = await findUser(email);
+        console.log(email);
+        console.log(password);
 
-        let passChecker = await bcrypt.compare(password, userFinder.password);
+        if (userFinder) {
+            let passChecker = await bcrypt.compare(password, userFinder.password);
 
+            if (userFinder && email == userFinder.email && passChecker) {
 
+                req.session.isLoggedIn = true;
+                req.session.userId = userFinder._id;
 
-        if (userFinder && email == userFinder.email && passChecker) {
+                console.log('user : ' + email + ' is loged in ');
 
-            req.session.isLoggedIn = true;
-            req.session.userId = userFinder._id;
+                const token = jwt.sign({ email: email }, 'a_secret_key');
 
-            const token = jwt.sign({ email: email }, 'a_secret_key');
+                // CRUD.ejs is only for testing bas la et2akkad enno kel chi meche  
+                // res.render(path.join(__dirname, '..', 'views', 'CRUD.ejs'));
+                res.json({ token: token });
 
-            // CRUD.ejs is only for testing bas la et2akkad enno kel chi meche  
-            // res.render(path.join(__dirname, '..', 'views', 'CRUD.ejs'));
-            res.json({ token: token });
-
+            } else {
+                req.session.isLoggedIn = false;
+                res.status(400).send({ message: 'wrong password ' });
+            }
         } else {
-            req.session.isLoggedIn = false;
-            res.status(400).send({ message: 'wrong email or password ' });
+            res.status(400).send({ message: 'wrong email ' });
         }
 
     } catch (error) {
+        console.log(error);
         res.status(400).send({ message: error.message });
     }
 

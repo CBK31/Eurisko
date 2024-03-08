@@ -121,10 +121,30 @@ const deleteAlbum = async (albumId) => {
 
 }
 
+const readAlbumByName = async (albumName, pageNum, itemsPerPage) => {
+    // let foundedAlbum = await findAlbumById(albumId);
+
+    const albumFinder = await albumModel.find({ name: albumName }).skip((pageNum - 1) * itemsPerPage).limit(itemsPerPage);
+
+
+
+    if (albumFinder.length === 0) {
+
+        throw new customError('No album found with this name ' + albumName, 400);
+
+    } else {
+        console.log('i found it ');
+        return albumFinder;
+    }
+
+}
+
+
 module.exports = {
     addAlbum,
     updateAlbum,
     readAlbum,
     findAlbumById,
-    deleteAlbum
+    deleteAlbum,
+    readAlbumByName
 };

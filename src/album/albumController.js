@@ -1,4 +1,4 @@
-const { addAlbum, updateAlbum, deleteAlbum, findAlbumById } = require('./albumService');
+const { addAlbum, updateAlbum, deleteAlbum, findAlbumById, readAlbumByName } = require('./albumService');
 
 
 
@@ -55,4 +55,23 @@ const readAlbum = async (req, res) => {
     }
 }
 
-module.exports = { addAlb, deleteAlb, updatealbum, readAlbum };
+const findAlbumByName = async (req, res) => {
+
+    try {
+
+        let { name } = req.body;
+        const requestedPage = parseInt(req.query.page, 10);
+        let itempPerPage = 3;
+
+
+        const finder = await readAlbumByName(name, requestedPage, itempPerPage)
+
+        res.status(200).send(finder);
+
+    } catch (error) {
+        res.status(400).send({ message: error.message });
+    }
+}
+
+
+module.exports = { addAlb, deleteAlb, updatealbum, readAlbum, findAlbumByName };
