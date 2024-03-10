@@ -9,15 +9,15 @@ const isAuthorised = require('./is-auth');
 const { validate } = require('express-validation');
 const Joi = require('joi');
 
-//just for testing 
-myRoutes.use('/login', (req, res) => {
-    res.render(path.join(__dirname, '..', 'views', 'login.ejs'));
-});
+// //just for testing 
+// myRoutes.use('/login', (req, res) => {
+//     res.render(path.join(__dirname, '..', 'views', 'login.ejs'));
+// });
 
-//just for testing 
-myRoutes.use('/signup', (req, res) => {
-    res.render(path.join(__dirname, '..', 'views', 'signup.ejs'));
-});
+// //just for testing 
+// myRoutes.use('/signup', (req, res) => {
+//     res.render(path.join(__dirname, '..', 'views', 'signup.ejs'));
+// });
 
 try {
     myRoutes.use('/api/user/loginUser',

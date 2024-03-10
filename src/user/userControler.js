@@ -24,14 +24,15 @@ let createUser = async (req, res) => {
 }
 
 let loginUser = async (req, res) => {
+
     const { email, password } = req.body;
 
     try {
 
 
         let userFinder = await findUser(email);
-        console.log(email);
-        console.log(password);
+        // console.log(email);
+        // console.log(password);
 
         if (userFinder) {
             let passChecker = await bcrypt.compare(password, userFinder.password);

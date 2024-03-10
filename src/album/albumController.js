@@ -60,6 +60,7 @@ const findAlbumByName = async (req, res) => {
     try {
 
         let { name } = req.body;
+
         const requestedPage = parseInt(req.query.page, 10);
         let itempPerPage = 3;
 
