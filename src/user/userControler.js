@@ -28,8 +28,6 @@ let loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-
-
         let userFinder = await findUser(email);
         // console.log(email);
         // console.log(password);
